@@ -15,8 +15,10 @@
 
     <h2>Likheter till C#</h2>
     <ul>
-        
+        <li>Kommentar skrivs som //</li>
+        <li>PHP satser avslutas med ;</li>
     </ul>
+
     <?php
 
     echo "<p>Mitt första <strong>PHP script</strong></p>";
