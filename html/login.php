@@ -13,7 +13,8 @@
 
 <?php
 
-require("../includes/wsp1-funktions.php");
+require "../templates/head.php";
+require "../includes/wsp1-funktions.php";
 
 // define variables and set to empty values
 $PWErr = $usernameErr = "";
@@ -103,7 +104,9 @@ function test_input($data) {
 ?>
 
 <h2>Logga in</h2>
+<br>
 <p><span class="error">* Uppgifter krävs</span></p>
+<br>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
   Användarnamn: <input type="text" name="username" value="<?php echo $username;?>">
   <span class="error">* <?php echo $usernameErr;?></span>

@@ -5,15 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inloggning</title>
-    <style>
-    .error {color: #FF0000;}
-    </style>
+    <link rel="stylesheet" href="css/mystyle.css">
 </head>
 <body>
 
 <?php
 
-require("../includes/wsp1-funktions.php");
+
+require "../includes/wsp1-funktions.php";
 
 // define variables and set to empty values
 $nameErr = $lastnameErr = $emailErr = $genderErr = $websiteErr = $bdayErr = $PWErr = $PWAErr = $usernameErr = "";
@@ -128,11 +127,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
   if($errors == 0){
 
-    require("..\includes\settings.php");
+    include "../includes/settings.php";
+    include "../templates/head.php";
   
     try {
-
-
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
       // set the PDO error mode to exception
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -141,31 +139,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       VALUES ('$username', '$name', '$lastname', '$email', '$bday', '$gender', '$website', '$hashed_PW')";
       // use exec() because no results are returned
       $conn->exec($sql);
-      echo "New record created successfully";
+    
+      //Stäng databas anslutningen
+      $conn = null;
+      //Sätter en kaka
+      setcookie("wsp1-user", $username, time() + 86400 , "/");
+      //Ta användaren till annan sida.
+      header("Location: sida.php");
+    
     } catch(PDOException $e) {
       echo $sql . "<br>" . $e->getMessage();
     }
-  
-    $conn = null;
-
-    setcookie("wsp1-user", $username, time() + 86400 , "/");
-
-    //Ta användaren till annan sida.
-    header("Location: sida.php");
-  
   }
   else{
     echo "En eller flera uppgifter är inte korrekt inskrivna.";
   }
 }
 
-//Kontrollera om det inte finns errors
-/*if(){
-  //skicka data till databasen
+require "../templates/head.php";
 
-  //Gå till välkommen-sida
-}
-*/
 
 function test_input($data) {
   $data = trim($data);
@@ -179,9 +171,11 @@ function test_input($data) {
 
 
 ?>
-
-<h2>Registrering</h2>
+<br>
+<h1>Registrering</h1>
+<br>
 <p><span class="error">* Uppgifter krävs</span></p>
+<br>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
   Användarnamn: <input type="text" name="username" value="<?php echo $username;?>">
   <span class="error">* <?php echo $usernameErr;?></span>
@@ -213,13 +207,13 @@ function test_input($data) {
   Reppetera lösenord: <input type="password" name="PWA" value="<?php echo $PWA;?>">
   <span class="error">* <?php echo $PWAErr;?></span>
   <br><br>
-  <input type="submit" name="Skicka in" value="Submit"> 
+  <input type="submit" name="submit" value="Skicka in"> 
 
 </form>
 
 <?php
 
-include "../templates/foot.php";
+require "../templates/foot.php";
 
 ?>
 
