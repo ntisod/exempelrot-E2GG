@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="sv">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inloggning</title>
-    <link rel="stylesheet" href="css/mystyle.css">
-</head>
-<body>
-
 <?php
 
 
@@ -128,15 +117,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if($errors == 0){
 
     include "../includes/settings.php";
-    include "../templates/head.php";
   
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
       // set the PDO error mode to exception
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $hashed_PW = password_hash($PW, PASSWORD_DEFAULT);
-      $sql = "INSERT INTO users (username, name, lastname, email, bday, Kön, Website, password)
-      VALUES ('$username', '$name', '$lastname', '$email', '$bday', '$gender', '$website', '$hashed_PW')";
+      $sql = "INSERT INTO users (username, name, lastname, email, bday, kon, Website, password)
+      VALUES ('$username', '$name', '$lastname', '$email', '$bday', '$gender', '$website', '$hashed_PW');";
       // use exec() because no results are returned
       $conn->exec($sql);
     
@@ -156,6 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 
+$title = "Registrera ny anvndare";
 require "../templates/head.php";
 
 
@@ -168,11 +157,9 @@ function test_input($data) {
 
 //om errors inte finns så lägger du till i db, allt på samma gång, byt variabelnamn om det behövs. (i admin) ge username primärnyckel på nått sätt. 
 
-
-
 ?>
-<br>
-<h1>Registrering</h1>
+
+<h2>Registrering</h2>
 <br>
 <p><span class="error">* Uppgifter krävs</span></p>
 <br>
@@ -216,6 +203,3 @@ function test_input($data) {
 require "../templates/foot.php";
 
 ?>
-
-</body>
-</html>

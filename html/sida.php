@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="mystyle.css">
-</head>
-<body>
-    
-    <h1>Detta är en sida</h1>
+<?php
+    $title = "Sida";
+    include "../templates/head.php";
+?>
 
-</body>
-</html>
+<h2>Detta är en sida</h2>
 
 <?php
 
